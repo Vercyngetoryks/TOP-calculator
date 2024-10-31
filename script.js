@@ -6,6 +6,7 @@ const operands = document.querySelectorAll(".operand");
 const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector(".equals");
 const sign = document.querySelector(".sign");
+const percent = document.querySelector(".percent");
 let operand1 = 0;
 let operand2 = 0;
 let operator;
@@ -41,6 +42,13 @@ operands.forEach((operand) =>
   })
 );
 
+operands.forEach((operand) =>
+  operand.addEventListener("click", () => {
+    operand.classList.add("flash");
+    setTimeout(() => operand.classList.remove("flash"), 200);
+  })
+);
+
 operators.forEach((operat) =>
   operat.addEventListener("click", function () {
     operand1 = Number(display.textContent);
@@ -56,5 +64,9 @@ equals.addEventListener("click", function () {
 });
 
 sign.addEventListener("click", function () {
-  display.textContent = String(-Number(display.textContent));
+  display.textContent = -Number(display.textContent);
+});
+
+percent.addEventListener("click", () => {
+  display.textContent = Number(display.textContent) / 100;
 });
