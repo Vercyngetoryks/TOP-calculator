@@ -5,6 +5,7 @@ const clear = document.querySelector(".clear");
 const operands = document.querySelectorAll(".operand");
 const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector(".equals");
+const sign = document.querySelector(".sign");
 let operand1 = 0;
 let operand2 = 0;
 let operator;
@@ -18,6 +19,16 @@ clear.addEventListener("click", function () {
   reset = false;
 });
 
+function operate(a, b) {
+  if (operator == "+") display.textContent = a + b;
+  else if (operator == "-") display.textContent = a - b;
+  else if (operator == "*") display.textContent = a * b;
+  else if (operator == "/") {
+    if (operand1 === 0 || operand2 === 0) display.textContent = "ERROR";
+    else display.textContent = a / b;
+  }
+}
+
 operands.forEach((operand) =>
   operand.addEventListener("click", function () {
     if (reset) {
@@ -29,13 +40,6 @@ operands.forEach((operand) =>
     } else display.textContent += this.textContent;
   })
 );
-
-function operate(a, b) {
-  if (operator == "+") display.textContent = a + b;
-  else if (operator == "-") display.textContent = a - b;
-  else if (operator == "*") display.textContent = a * b;
-  else display.textContent = a / b;
-}
 
 operators.forEach((operat) =>
   operat.addEventListener("click", function () {
@@ -49,4 +53,8 @@ equals.addEventListener("click", function () {
   operand2 = Number(display.textContent);
   operate(operand1, operand2);
   reset = true;
+});
+
+sign.addEventListener("click", function () {
+  display.textContent = String(-Number(display.textContent));
 });
