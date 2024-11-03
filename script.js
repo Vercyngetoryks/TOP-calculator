@@ -7,6 +7,7 @@ const operators = document.querySelectorAll(".operator");
 const equals = document.querySelector(".equals");
 const sign = document.querySelector(".sign");
 const percent = document.querySelector(".percent");
+const decimal = document.querySelector(".decimal");
 let operand1 = 0;
 let operand2 = 0;
 let operator;
@@ -46,27 +47,36 @@ operands.forEach((operand) =>
   operand.addEventListener("click", () => {
     operand.classList.add("flash");
     setTimeout(() => operand.classList.remove("flash"), 200);
+    operators.forEach((operator) =>
+      operator.classList.remove("operator-active")
+    );
   })
 );
 
+decimal.addEventListener("click", () => {
+  if (!display.textContent.includes("."))
+    display.textContent += decimal.textContent;
+});
+
 operators.forEach((operat) =>
   operat.addEventListener("click", function () {
-    operand1 = Number(display.textContent);
+    operand1 = parseFloat(display.textContent);
     operator = this.textContent;
+    operat.classList.add("operator-active");
     reset = true;
   })
 );
 
 equals.addEventListener("click", function () {
-  operand2 = Number(display.textContent);
+  operand2 = parseFloat(display.textContent);
   operate(operand1, operand2);
   reset = true;
 });
 
 sign.addEventListener("click", function () {
-  display.textContent = -Number(display.textContent);
+  display.textContent = -parseFloat(display.textContent);
 });
 
 percent.addEventListener("click", () => {
-  display.textContent = Number(display.textContent) / 100;
+  display.textContent = parseFloat(display.textContent) / 100;
 });

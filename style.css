@@ -83,3 +83,7 @@ main {
   background-color: rgb(99, 98, 98);
   transition: background-color 0.2s ease;
 }
+
+.operator-active {
+  background-color: rgb(107, 107, 255);
+}
