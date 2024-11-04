@@ -29,6 +29,7 @@ main {
   gap: 2rem;
   align-items: center;
   background-color: darkgreen;
+  min-width: 40rem;
 }
 
 .display {
@@ -41,7 +42,7 @@ main {
 }
 
 .display-content {
-  font-size: 4rem;
+  font-size: 6rem;
 }
 
 .buttons {
@@ -74,6 +75,10 @@ main {
   background-color: lightblue;
 }
 
+.equals {
+  height: 10rem;
+}
+
 .operand,
 .decimal {
   background-color: lightgray;
@@ -86,4 +91,8 @@ main {
 
 .operator-active {
   background-color: rgb(107, 107, 255);
+}
+
+.delete {
+  background-color: rgb(255, 55, 55);
 }

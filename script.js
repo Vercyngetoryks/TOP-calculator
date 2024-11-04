@@ -8,6 +8,7 @@ const equals = document.querySelector(".equals");
 const sign = document.querySelector(".sign");
 const percent = document.querySelector(".percent");
 const decimal = document.querySelector(".decimal");
+const del = document.querySelector(".delete");
 let operand1 = 0;
 let operand2 = 0;
 let operator;
@@ -22,12 +23,12 @@ clear.addEventListener("click", function () {
 });
 
 function operate(a, b) {
-  if (operator == "+") display.textContent = a + b;
-  else if (operator == "-") display.textContent = a - b;
-  else if (operator == "*") display.textContent = a * b;
+  if (operator == "+") display.textContent = (a + b).toFixed(4);
+  else if (operator == "-") display.textContent = (a - b).toFixed(4);
+  else if (operator == "*") display.textContent = (a * b).toFixed(4);
   else if (operator == "/") {
     if (operand1 === 0 || operand2 === 0) display.textContent = "ERROR";
-    else display.textContent = a / b;
+    else display.textContent = (a / b).toFixed(4);
   }
 }
 
@@ -70,6 +71,8 @@ operators.forEach((operat) =>
 equals.addEventListener("click", function () {
   operand2 = parseFloat(display.textContent);
   operate(operand1, operand2);
+  equals.style.backgroundColor = "rgb(107, 107, 255)";
+  setTimeout(() => (equals.style.backgroundColor = ""), 200);
   reset = true;
 });
 
@@ -79,4 +82,11 @@ sign.addEventListener("click", function () {
 
 percent.addEventListener("click", () => {
   display.textContent = parseFloat(display.textContent) / 100;
+});
+
+del.addEventListener("click", () => {
+  const arr = Array.from(display.textContent);
+  console.log(arr);
+  if (arr.length === 1) display.textContent = "0";
+  else display.textContent = arr.splice(0, arr.length - 1).join("");
 });
