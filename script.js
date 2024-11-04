@@ -86,7 +86,6 @@ percent.addEventListener("click", () => {
 
 del.addEventListener("click", () => {
   const arr = Array.from(display.textContent);
-  console.log(arr);
   if (arr.length === 1) display.textContent = "0";
   else display.textContent = arr.splice(0, arr.length - 1).join("");
 });
