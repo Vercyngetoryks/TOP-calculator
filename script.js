@@ -14,21 +14,21 @@ let operand2 = 0;
 let operator;
 let reset = false;
 
-clear.addEventListener("click", function () {
+clear.addEventListener("click", resetCalculator);
+function resetCalculator() {
   operand1 = 0;
   operand2 = 0;
   operator = "";
   display.textContent = 0;
   reset = false;
-});
+}
 
 function operate(a, b) {
-  if (operator == "+") display.textContent = (a + b).toFixed(4);
-  else if (operator == "-") display.textContent = (a - b).toFixed(4);
-  else if (operator == "*") display.textContent = (a * b).toFixed(4);
-  else if (operator == "/") {
-    if (operand1 === 0 || operand2 === 0) display.textContent = "ERROR";
-    else display.textContent = (a / b).toFixed(4);
+  if (operator === "+") display.textContent = a + b;
+  else if (operator === "-") display.textContent = a - b;
+  else if (operator === "*") display.textContent = a * b;
+  else if (operator === "/") {
+    display.textContent = b === 0 ? "ERROR" : a / b;
   }
 }
 
@@ -85,7 +85,6 @@ percent.addEventListener("click", () => {
 });
 
 del.addEventListener("click", () => {
-  const arr = Array.from(display.textContent);
-  if (arr.length === 1) display.textContent = "0";
-  else display.textContent = arr.splice(0, arr.length - 1).join("");
+  display.textContent =
+    display.textContent.length === 1 ? "0" : display.textContent.slice(0, -1);
 });
