@@ -14,7 +14,6 @@ let operand2 = 0;
 let operator;
 let reset = false;
 
-clear.addEventListener("click", resetCalculator);
 function resetCalculator() {
   operand1 = 0;
   operand2 = 0;
@@ -32,15 +31,30 @@ function operate(a, b) {
   }
 }
 
+function addFlashEffect(button) {
+  button.classList.add(".flash");
+  setTimeout(() => button.classList.remove(".flash"), 200);
+}
+
+function resetOperatorHighlight() {
+  operators.forEach((operator) => operator.classList.remove("operator-active"));
+}
+
+function handleOperandClick(value) {
+  if (reset) {
+    display.textContent = "";
+    reset = false;
+  }
+  display.textContent =
+    display.textContent === "0"
+      ? value.trim()
+      : display.textContent + value.trim();
+  resetOperatorHighlight();
+}
+
 operands.forEach((operand) =>
-  operand.addEventListener("click", function () {
-    if (reset) {
-      display.textContent = "";
-      reset = false;
-    }
-    if (display.textContent === "0") {
-      display.textContent = this.textContent;
-    } else display.textContent += this.textContent;
+  operand.addEventListener("click", () => {
+    handleOperandClick(operand.textContent);
   })
 );
 
@@ -48,9 +62,6 @@ operands.forEach((operand) =>
   operand.addEventListener("click", () => {
     operand.classList.add("flash");
     setTimeout(() => operand.classList.remove("flash"), 200);
-    operators.forEach((operator) =>
-      operator.classList.remove("operator-active")
-    );
   })
 );
 
@@ -88,3 +99,5 @@ del.addEventListener("click", () => {
   display.textContent =
     display.textContent.length === 1 ? "0" : display.textContent.slice(0, -1);
 });
+
+clear.addEventListener("click", resetCalculator);
