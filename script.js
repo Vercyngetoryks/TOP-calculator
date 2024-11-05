@@ -32,12 +32,20 @@ function operate(a, b) {
 }
 
 function addFlashEffect(button) {
-  button.classList.add(".flash");
-  setTimeout(() => button.classList.remove(".flash"), 200);
+  button.classList.add("flash");
+  setTimeout(() => button.classList.remove("flash"), 200);
 }
 
 function resetOperatorHighlight() {
   operators.forEach((operator) => operator.classList.remove("operator-active"));
+}
+
+function setOperatorHighlight(value) {
+  resetOperatorHighlight();
+  const currentOperator = document.querySelector(
+    `.operator[data-key="${value}"]`
+  );
+  if (currentOperator) currentOperator.classList.add("operator-active");
 }
 
 function handleOperandClick(value) {
@@ -52,52 +60,65 @@ function handleOperandClick(value) {
   resetOperatorHighlight();
 }
 
+function handleOperatorClick(value) {
+  operand1 = parseFloat(display.textContent);
+  operator = value;
+  reset = true;
+  setOperatorHighlight(value);
+}
+
+function handleDecimalClick() {
+  if (!display.textContent.includes(".")) {
+    display.textContent += decimal.textContent;
+    addFlashEffect(decimal);
+  }
+}
+
+function handleEqualsClick() {
+  operand2 = parseFloat(display.textContent);
+  operate(operand1, operand2);
+  reset = true;
+  addFlashEffect(equals);
+}
+
+function handleSignClick() {
+  display.textContent = -parseFloat(display.textContent);
+}
+
+function handlePercentClick() {
+  display.textContent = parseFloat(display.textContent) / 100;
+}
+
+function handleDeleteClick() {
+  display.textContent =
+    display.textContent.length === 1 ? "0" : display.textContent.slice(0, -1);
+}
+
 operands.forEach((operand) =>
   operand.addEventListener("click", () => {
     handleOperandClick(operand.textContent);
+    addFlashEffect(operand);
   })
 );
 
-operands.forEach((operand) =>
-  operand.addEventListener("click", () => {
-    operand.classList.add("flash");
-    setTimeout(() => operand.classList.remove("flash"), 200);
+operators.forEach((operator) =>
+  operator.addEventListener("click", () => {
+    handleOperatorClick(operator.textContent);
   })
 );
 
-decimal.addEventListener("click", () => {
-  if (!display.textContent.includes("."))
-    display.textContent += decimal.textContent;
-});
+decimal.addEventListener("click", handleDecimalClick);
 
-operators.forEach((operat) =>
-  operat.addEventListener("click", function () {
-    operand1 = parseFloat(display.textContent);
-    operator = this.textContent;
-    operat.classList.add("operator-active");
-    reset = true;
-  })
-);
+equals.addEventListener("click", handleEqualsClick);
 
-equals.addEventListener("click", function () {
-  operand2 = parseFloat(display.textContent);
-  operate(operand1, operand2);
-  equals.style.backgroundColor = "rgb(107, 107, 255)";
-  setTimeout(() => (equals.style.backgroundColor = ""), 200);
-  reset = true;
-});
+sign.addEventListener("click", handleSignClick);
 
-sign.addEventListener("click", function () {
-  display.textContent = -parseFloat(display.textContent);
-});
+percent.addEventListener("click", handlePercentClick);
 
-percent.addEventListener("click", () => {
-  display.textContent = parseFloat(display.textContent) / 100;
-});
-
-del.addEventListener("click", () => {
-  display.textContent =
-    display.textContent.length === 1 ? "0" : display.textContent.slice(0, -1);
-});
+del.addEventListener("click", handleDeleteClick);
 
 clear.addEventListener("click", resetCalculator);
+
+document.addEventListener("keydown", (e) => {
+  const key = e.key;
+});
