@@ -34,3 +34,16 @@ During the project, a few challenges were encountered, particularly with managin
      - Unwanted button highlighting (e.g., `AC` or operators).
      - Duplicate calculations when pressing `Enter`.
    - **Solution**: Ensured that `focus` was managed with `.blur()` to avoid lingering effects.
+
+## Keyboard Controls
+
+| Key                | Action                 |
+| ------------------ | ---------------------- |
+| `0-9`              | Enter numbers          |
+| `+`, `-`, `*`, `/` | Select operator        |
+| `Enter`            | Calculate result       |
+| `Backspace`        | Delete last entry      |
+| `End`              | Clear all (`AC`)       |
+| `Shift`            | Change sign (`+/-`)    |
+| `%`                | Percentage calculation |
+| `.`                | Decimal point          |
