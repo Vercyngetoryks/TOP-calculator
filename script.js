@@ -80,12 +80,12 @@ function handleDecimalClick() {
   if (display.textContent.length >= 9) return;
   if (!display.textContent.includes(".")) {
     display.textContent += decimal.textContent;
-
     addFlashEffect(decimal);
   }
 }
 
 function handleEqualsClick() {
+  if (display.textContent === "0") return;
   operand2 = parseFloat(display.textContent);
   operate(operand1, operand2);
   reset = true;
@@ -159,6 +159,7 @@ document.addEventListener("keydown", (e) => {
   const deleteButton = document.querySelector(`.bckspace[data-key="${key}"]`);
   const signButton = document.querySelector(`.sign[data-key="${key}"]`);
   const percentButton = document.querySelector(`.percent[data-key="${key}"]`);
+  const decimalButton = document.querySelector(`.decimal[data-key="${key}"]`);
 
   if (operandButton) handleOperandClick(operandButton.textContent);
   else if (operatorButton) handleOperatorClick(operatorButton.textContent);
@@ -167,4 +168,5 @@ document.addEventListener("keydown", (e) => {
   else if (deleteButton) handleDeleteClick();
   else if (signButton) handleSignClick();
   else if (percentButton) handlePercentClick();
+  else if (decimalButton) handleDecimalClick();
 });
