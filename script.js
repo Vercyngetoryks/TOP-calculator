@@ -23,12 +23,20 @@ function resetCalculator() {
 }
 
 function operate(a, b) {
-  if (operator === "+") display.textContent = a + b;
-  else if (operator === "-") display.textContent = a - b;
-  else if (operator === "*") display.textContent = a * b;
+  let result;
+
+  if (operator === "+") result = a + b;
+  else if (operator === "-") result = a - b;
+  else if (operator === "*") result = a * b;
   else if (operator === "/") {
-    display.textContent = b === 0 ? "ERROR" : a / b;
+    result = b === 0 ? "ERROR" : a / b;
   }
+
+  if (typeof result === "number" && !isNaN(result)) {
+    result = parseFloat(result.toFixed(4));
+  }
+
+  display.textContent = result;
 }
 
 function addFlashEffect(button) {
@@ -53,6 +61,7 @@ function handleOperandClick(value) {
     display.textContent = "";
     reset = false;
   }
+  if (display.textContent.length >= 9) return;
   display.textContent =
     display.textContent === "0"
       ? value.trim()
@@ -68,8 +77,10 @@ function handleOperatorClick(value) {
 }
 
 function handleDecimalClick() {
+  if (display.textContent.length >= 9) return;
   if (!display.textContent.includes(".")) {
     display.textContent += decimal.textContent;
+
     addFlashEffect(decimal);
   }
 }

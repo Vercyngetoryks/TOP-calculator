@@ -43,6 +43,9 @@ main {
 
 .display-content {
   font-size: 6rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .buttons {
