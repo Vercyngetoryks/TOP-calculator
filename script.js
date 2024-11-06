@@ -8,7 +8,7 @@ const equals = document.querySelector(".equals");
 const sign = document.querySelector(".sign");
 const percent = document.querySelector(".percent");
 const decimal = document.querySelector(".decimal");
-const del = document.querySelector(".delete");
+const del = document.querySelector(".bckspace");
 let operand1 = 0;
 let operand2 = 0;
 let operator;
@@ -98,27 +98,62 @@ operands.forEach((operand) =>
   operand.addEventListener("click", () => {
     handleOperandClick(operand.textContent);
     addFlashEffect(operand);
+    operand.blur();
   })
 );
 
 operators.forEach((operator) =>
   operator.addEventListener("click", () => {
     handleOperatorClick(operator.textContent);
+    operator.blur();
   })
 );
 
-decimal.addEventListener("click", handleDecimalClick);
+decimal.addEventListener("click", () => {
+  handleDecimalClick();
+  decimal.blur();
+});
 
-equals.addEventListener("click", handleEqualsClick);
+equals.addEventListener("click", () => {
+  handleEqualsClick();
+  equals.blur();
+});
 
-sign.addEventListener("click", handleSignClick);
+sign.addEventListener("click", () => {
+  handleSignClick();
+  sign.blur();
+});
 
-percent.addEventListener("click", handlePercentClick);
+percent.addEventListener("click", () => {
+  handlePercentClick();
+  percent.blur();
+});
 
-del.addEventListener("click", handleDeleteClick);
+del.addEventListener("click", () => {
+  handleDeleteClick();
+  del.blur();
+});
 
-clear.addEventListener("click", resetCalculator);
+clear.addEventListener("click", () => {
+  resetCalculator();
+  clear.blur();
+});
 
 document.addEventListener("keydown", (e) => {
   const key = e.key;
+  const operandButton = document.querySelector(`.operand[data-key="${key}"]`);
+  const operatorButton = document.querySelector(`.operator[data-key="${key}"]`);
+  const equalsButton = document.querySelector(`.equals[data-key="${key}"]`);
+  const resetButton = document.querySelector(`.clear[data-key="${key}"]`);
+  const deleteButton = document.querySelector(`.bckspace[data-key="${key}"]`);
+  const signButton = document.querySelector(`.sign[data-key="${key}"]`);
+  const percentButton = document.querySelector(`.percent[data-key="${key}"]`);
+
+  if (operandButton) handleOperandClick(operandButton.textContent);
+  else if (operatorButton) handleOperatorClick(operatorButton.textContent);
+  else if (equalsButton) handleEqualsClick();
+  else if (resetButton) resetCalculator();
+  else if (deleteButton) handleDeleteClick();
+  else if (signButton) handleSignClick();
+  else if (percentButton) handlePercentClick();
 });
