@@ -85,7 +85,7 @@ function handleDecimalClick() {
 }
 
 function handleEqualsClick() {
-  if (display.textContent === "0") return;
+  if (operand1 === 0) return;
   operand2 = parseFloat(display.textContent);
   operate(operand1, operand2);
   reset = true;
